@@ -7,11 +7,12 @@ import face_recognition
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import config  # Import the new config file
 
-# Initialize Firebase
-cred = credentials.Certificate("serviceAccountKey.json")
+# Initialize Firebase using config
+cred = credentials.Certificate(config.FIREBASE_CREDENTIALS)
 firebase_admin.initialize_app(cred, {
-    'databaseURL': "https://faceattendancerealtime-3c16b-default-rtdb.firebaseio.com/"
+    'databaseURL': config.FIREBASE_DATABASE_URL
 })
 
 # Initialize webcam
@@ -35,10 +36,10 @@ encodeListKnown, studentIds = encodeListKnownIds
 print("ENCODE FILE LOADED")
 
 # Load student images from the "Images" folder
-folderPath = "Images"  # Ensure this folder exists and contains images named by student ID (e.g., "12345.jpg")
+folderPath = "Images"
 studentImages = {}
 for img_file in os.listdir(folderPath):
-    img_id = os.path.splitext(img_file)[0]  # Get ID from filename (e.g., "12345" from "12345.jpg")
+    img_id = os.path.splitext(img_file)[0]
     img_path = os.path.join(folderPath, img_file)
     studentImages[img_id] = cv2.imread(img_path)
     if studentImages[img_id] is None:
@@ -94,7 +95,6 @@ while True:
                 counter = 0
                 continue
 
-        # Only proceed if studentInfo is valid
         if studentInfo is not None:
             try:
                 # Display student details
@@ -113,10 +113,8 @@ while True:
                 cv2.putText(imgBackground, str(studentInfo['name']), (808, 445),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (50, 50, 50), 1)
 
-                # Display student image if it exists
                 if id in studentImages:
                     studentImage = studentImages[id]
-                    # Resize to 216x216 to fit the target area
                     studentImageResized = cv2.resize(studentImage, (216, 216), interpolation=cv2.INTER_AREA)
                     imgBackground[175:175 + 216, 909:909 + 216] = studentImageResized
                 else:
