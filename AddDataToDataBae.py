@@ -7,9 +7,9 @@ from firebase_admin import db
 # load_dotenv()
 
 # Initialize Firebase Admin SDK with credentials and database URL
-cred = credentials.Certificate("serviceAccountKey.json")
+cred = credentials.Certificate("Serviceaccountkey.json")
 firebase_admin.initialize_app(cred,{
-    'databaseURL':"https://faceattendancerealtime-3c16b-default-rtdb.firebaseio.com/"
+    'databaseURL':"https://face-attendance-83aa9-default-rtdb.firebaseio.com/"
 })
 
 # Reference to the "Students" node in Firebase Realtime Database

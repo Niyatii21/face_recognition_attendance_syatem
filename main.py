@@ -7,14 +7,14 @@ import face_recognition
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
-import config  # Import the new config file
+import config
+# Import the new config file
 
 # Initialize Firebase using config
 cred = credentials.Certificate(config.FIREBASE_CREDENTIALS)
-firebase_admin.initialize_app(cred, {
-    'databaseURL': config.FIREBASE_DATABASE_URL
+firebase_admin.initialize_app(cred,{
+    'databaseURL':config.FIREBASE_DATABASE_URL
 })
-
 # Initialize webcam
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
