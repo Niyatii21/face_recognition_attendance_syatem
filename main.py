@@ -36,6 +36,7 @@ encodeListKnown, studentIds = encodeListKnownIds
 print("ENCODE FILE LOADED")
 
 # Load student images from the "Images" folder
+#local storage
 folderPath = "Images"
 studentImages = {}
 for img_file in os.listdir(folderPath):
@@ -82,7 +83,7 @@ while True:
             if counter == 0:
                 counter = 1
                 modeType = 1
-
+    #real-time database
     if counter != 0:
         if counter == 1:
             studentInfo = db.reference(f'Students/{id}').get()
