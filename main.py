@@ -8,6 +8,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import config
+
 # Import the new config file
 
 # Initialize Firebase using config
@@ -50,6 +51,7 @@ modeType = 0
 counter = 0
 id = -1
 studentInfo = None
+id2=0
 
 while True:
     success, img = cap.read()
